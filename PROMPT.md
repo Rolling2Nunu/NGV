@@ -84,3 +84,19 @@ origin 주소가 이미 동일하게 설정되어 있음을 확인하고, `git a
 
 **Claude:**
 `feature/0.0.1` 브랜치에서 CLAUDE.md, PROMPT.md, .claude/(skills, agents, settings.json)를 최초 커밋하고 origin(https://github.com/Rolling2Nunu/NGV.git)으로 push함.
+
+---
+
+**User:**
+> GitHub에서 브랜치 확인해줘
+
+**Claude:**
+`git ls-remote --heads origin`으로 원격 저장소를 조회하여 `feature/0.0.1` 브랜치가 정상적으로 존재하고 로컬 push 커밋(e127dbb)과 일치함을 확인함.
+
+---
+
+**User:**
+> 커밋하고 푸시해줘
+
+**Claude:**
+사용자가 IDE에서 직접 수정한 CLAUDE.md 변경(Repository/문서 언어 정책 섹션을 "프로젝트 개발 정책"—분석→설계→구현→테스트 순서 및 단계별 템플릿 기반 산출물 요구—로 대체)을 확인하고, `feature/0.0.1` 브랜치에 커밋(bd3aae2) 후 origin으로 push함.
