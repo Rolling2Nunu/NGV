@@ -311,3 +311,96 @@ PROMPT.md 로그 갱신분만 커밋 후 push(툴 설치 자체는 저장소 외
 
 **Claude:**
 obra/superpowers의 test-driven-development/SKILL.md·writing-good-tests.md 원문 확보(WebFetch) 후 한글 번역·Python/unittest 각색해 `.claude/skills/tdd/SKILL.md`(Iron Law, Red-Green-Refactor, 좋은/나쁜 예, 합리화 반박표, 경고신호, 뮤테이션점검, 체크리스트) 전면 교체 및 `.claude/skills/tdd/writing-good-tests.md`(원칙1 깨짐의 이름, 원칙2 실제대상 실행, 게이트함수, 경고신호) 신규 생성. 기존 NGV tdd 스킬의 unittest 표준·상세설계 커버리지 매핑·test_*.py 명명은 "11장 이 프로젝트 적용 사항"으로 보존. 신규 요구사항(테스트 기법/긍정·부정 케이스/Doxygen 목적설명)은 "6장 테스트 문서화 규칙"으로 반영(`@brief`/`@technique`/`@case` docstring 태그). coding-agent.md 절차에도 반영. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+tdd 스킬 교체분(SKILL.md, writing-good-tests.md 신규), coding-agent.md, PROMPT.md 갱신분을 커밋(ce1e8b8) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> https://github.com/Rolling2Nunu/NGV.git를 Branch 트리 관리하는 전략 중 트렌디한 걸 https://github.com/obra/superpower에서 찾아서 반영해줘. github구조를 업데이트해줘
+
+**Claude:**
+obra/superpowers의 using-git-worktrees·finishing-a-development-branch 스킬(WebFetch) 확인 후 GitHub Flow 기반 전략(트렁크 main, 단명 feature 브랜치, worktree 격리, 테스트게이트+PR 완료절차)을 CLAUDE.md "Git 브랜치 전략" 절로 반영. `.gitignore`에 `.worktrees/` 추가. 실제 feature/0.0.1→main 병합/PR 실행 여부는 사용자 확인 대기(커밋 전).
+
+---
+
+**User:**
+> (실행 확인 질문 응답) "지금 feature/0.0.1을 main으로 PR 생성·병합"
+
+**Claude:**
+CLAUDE.md/.gitignore 커밋(11ace78)·push. gh CLI 미설치 확인 후 winget 설치, 기존 GCM 토큰은 scope 부족으로 실패해 `gh auth login --web` 디바이스 코드 인증 진행(사용자가 브라우저에서 완료). main 브랜치를 최초 커밋(e127dbb)에서 생성·push, PR #1(feature/0.0.1→main) 생성 후 병합(merge commit, feature 브랜치 유지), 저장소 기본 브랜치를 main으로 전환, 로컬 main을 origin/main에 동기화.
+
+---
+
+**User:**
+> 완료
+
+**Claude:**
+gh auth status로 인증 완료 확인 후 PR 생성·병합·기본 브랜치 전환까지 이어서 실행.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+PROMPT.md 로그 갱신분을 feature/0.0.1에 커밋(42d5c0c) 후 push함(main 병합은 별도 요청 시 진행).
+
+---
+
+**User:**
+> 소프트웨어 통합 테스트를 위한 서브에이전트와 스킬 생성해줘.
+> 테스트 기법은 ISO26262 Part6에 근거하고, 함수 커버리지 및 Call 커버리지는 100% 달성해줘.
+> 테스트 베이시스인 아키텍처 설계서의 인터페이스와 통합 순서에 근거하여 테스트를 진행하도록 해줘.
+
+**Claude:**
+`.claude/skills/integration-tester/SKILL.md`(TPL-SWE5-001 14장 목차, 아키텍처 인터페이스+통합순서를 테스트 베이시스로 강제, ISO26262 Part6 공개 기법 목록(요구사항기반/인터페이스/경계값/동등분할/결함주입/자원사용), 함수커버리지 100%(coverage.py)·Call커버리지 100%(호출그래프 대조, 실측불가 시 단정 금지) 요구, TPL-SWE5-002/003 컬럼 기준 케이스·결과 작성, TPL-TRC-001 SWE.5/Coverage 컬럼 추적)와 `.claude/agents/integration-test-agent.md`(integration-tester+tdd 스킬 로드, 통합순서 준수, 커버리지 실측 필수인 서브에이전트) 생성. architecture-designer 스킬/에이전트의 11장을 "전략 수준만, 상세 통합순서표는 SWE.5(신규 스킬) 단일 관리"로 갱신(중복 제거). 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+integration-tester 스킬, integration-test-agent, architecture-designer 갱신분, PROMPT.md를 커밋(b9afe75) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> sw-system-tester.md와 관련 스킬이 추가되었어 분석하여 추가해줘
+
+**Claude:**
+사용자가 직접 추가한 `.claude/agents/sw-system-tester.md`(SWE.6 QA 서브에이전트)와 `.claude/skills/sw-system-test/SKILL.md`(ISO26262 Part6/A-SPICE SWE.4-6/ISO29119·ISTQB/ISO25000 기반 시스템 테스트 케이스 설계 방법론) 분석. 실제 TPL-SWE6-001/002.xlsx를 unzip+OOXML 파싱으로 직접 열어 시트명·컬럼 확인(Verification Specification: Test ID/SW Req/Level-Environment/Stimulus/Expected Result/Technique/Execution, Verification Results: Test ID/SW Req/Result/Actual Result/Evidence Locator/Execution Time/Scope Note — 기능/비기능 분리 시트나 확정근거 컬럼은 템플릿에 없음을 확인). 두 파일을 프로젝트 컨벤션(실제 템플릿 경로/등록부 ID/추적매트릭스 SWE.6·Coverage 컬럼/단답형 스타일)에 맞춰 갱신, 비기능은 확장 시트로 보완. PICT 오픈소스 도구 winget 설치·동작 확인(페어와이즈/전수조합 생성용). CLAUDE.md에 "테스트 지침" 절 신설(SWE.4/5/6 담당 에이전트 정리, 개발생명주기의 누락됐던 테스트 단계 문서화). 커밋 전.
+
+---
+
+**User:**
+> 서브에이전트와 각 서브에이전트에서 사용하는 시킬의 경계를 명혹히 정리해줘.서로 중복되는 내용이 없도록 만들어줘.
+
+**Claude:**
+전체 스킬 8개(aspice-auditor/requirements-analyst/architecture-designer/detailed-designer/tdd/coding-standards/integration-tester/sw-system-test)와 에이전트 7개를 전수 재검토. 신규 `.claude/skills/aspice-common/SKILL.md` 생성(문서스타일/저작권유의/템플릿사용절차/TPL-TRC-001 9컬럼 스키마+소유자 매핑표/공통금지사항/에이전트-스킬 역할경계 원칙을 단일 정의). 이 과정에서 실제 버그 발견·수정: architecture-designer가 `Architecture`와 `Detailed Design` 컬럼을 동시에 소유한다고 잘못 명시(detailed-designer와 충돌) → `Architecture`만 소유하도록 수정. `SWE.4` 컬럼 소유자가 어디에도 명시 안 돼 있던 공백 → `tdd` 스킬이 소유하도록 명시. 8개 스킬 모두 반복되던 문서작성스타일/저작권유의/템플릿절차/추적매트릭스9컬럼 전체 재기술/공통 하지말것 항목을 제거하고 aspice-common 참조로 교체, 각 스킬 고유 내용만 남김. 7개 에이전트 모두 스킬의 상세 기준(품질지표표/기법목록/템플릿컬럼/긴 금지목록) 재기술을 제거하고 "스킬 로드→선행확인→스킬기준 적용→담당 컬럼만 갱신" 흐름만 남김. 커밋 전.
+
+---
+
+**User:**
+> Git의 브랜치 정책을 적용해줘.
+> 일반적으로 AI를 활용한 바이브 코딩을 이용하여 GitHub를 사용했을 때 적용되는 정책으로 해줘. Action을 설정해줘.
+> PR이 진행될 때, Action을 실행해서 지속적 통합과 지속적 테스트를 수행해줘.
+
+**Claude:**
+`.github/workflows/ci.yml` 신규 생성(pull_request→main 트리거, Python 3.14 설정, flake8 lint, xenon으로 순환복잡도≤10 자동 게이트, coverage+unittest 단위테스트 — src/tests 없으면 생략). xenon/coverage 로컬 설치. coding-standards 스킬에 CI 자동게이트 안내 추가. CLAUDE.md에 "GitHub 브랜치 보호 및 CI" 절 신설(저장소 public 유의 포함). 전체 커밋(d01806a) 후 origin의 feature/0.0.1로 push. GitHub 저장소에 `delete_branch_on_merge=true` 적용, `main` 브랜치 보호 규칙 설정 완료(required_status_checks: "Lint, complexity gate, unit tests" strict, 승인 0명, enforce_admins false, 강제push/삭제 금지, PR 대화 해결 필수).
+
+---
+
+**User:**
+> @.claude/0_OEM_Sample\ 내 파일은 고객 요구사양서야. 이 사양서를 기반으로 우리 소프트웨어를 개발할 예정이야. CLAUDE.md와 같이 A-SPICE 기준으로 분석-설계-구현-테스트의 과정을 거치고 산출물을 작성해야 해.
+> 요구사양서를 분석하고 작업 계획을 제시해줘. 네가 제시한 각 phase 마다 분석~테스트 단계를 거쳐야해. 한 단계가 끝날 때마다 내가 리뷰하고, 리뷰를 승인하면 Git에 Merge해줘. 내가 확인해줘야 하는 것은 한 번에 문의해줘.
+
+**Claude:**
+OEM-SWR-001(전자식 차일드락 제어 SW, ASIL B 4건+QM 7건+비기능 2건+인터페이스 9건) 전문 추출·분석. 우선순위 계층별 5-phase 계획 제시(1.입력계약/유효성 2.안전최우선(ASIL B) 3.강제해제/잠금 4.운전자명령/일반기능 5.비기능) — 요구사항서·아키텍처서·추적매트릭스는 phase마다 새로 만들지 않고 누적. 4가지 확인사항(Python버전 3.12 vs 3.14, phase분할 방식, 브랜치전략, 리뷰단위) 한번에 질문 → 전부 권장안(3.14 유지/제안 분할대로/phase별 브랜치/phase완료 후 1회 리뷰)으로 확정. 계획을 메모리에 저장. main이 feature/0.0.1보다 3커밋 뒤처져 있어 Phase 1 브랜치 분기 전 main 동기화 필요 확인.

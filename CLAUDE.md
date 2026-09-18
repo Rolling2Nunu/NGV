@@ -36,6 +36,17 @@
     - 주석: Doxygen 방식 적용, 20% 이상 작성 필수
 - 함수명, 변수명은 3글자 이상 사용, 낙타 표기법 활용
 
+### 테스트 지침
+
+- 단위 테스트(SWE.4): `coding-agent`가 `tdd` 스킬로 TDD 방식 수행
+  (구현 지침에 포함).
+- 통합 테스트(SWE.5): `integration-test-agent`가 `integration-tester`
+  스킬로 수행. 아키텍처 설계서의 인터페이스·통합순서를 테스트 베이시스로
+  사용, 함수 커버리지·Call 커버리지 100% 달성.
+- 시스템 테스트(SWE.6): `sw-system-tester`가 `sw-system-test` 스킬로
+  수행. SW 요구사항 명세서 기반 기능/비기능 테스트 케이스 작성, ISO
+  26262 Part 6/ISO 29119·ISTQB/ISO 25000 기반 기법 선정.
+
 ### Git 브랜치 전략 (obra/superpowers 참고)
 
 출처: https://github.com/obra/superpowers `using-git-worktrees`,
@@ -56,6 +67,20 @@
   사용자가 명시적으로 요청할 때만 수행(기존 커밋/푸시 정책 유지,
   범위만 PR 단계까지 확장).
 - 작업 폐기는 사용자가 "폐기"라고 명시할 때만 수행, 임의 강제 삭제 금지.
+
+### GitHub 브랜치 보호 및 CI (바이브 코딩 표준 정책)
+
+- **브랜치 보호(`main`)**: PR 없이 직접 push 금지, 병합 전 CI(아래
+  워크플로) 통과 필수, 병합 후 브랜치 자동 삭제
+  (`delete_branch_on_merge`). 리뷰어 승인 인원수는 0(1인+AI 개발 체제
+  반영), 강제 push·삭제 금지.
+- **CI(`.github/workflows/ci.yml`)**: `pull_request → main` 시 자동
+  실행(지속적 통합·지속적 테스트). Python 3.14 설정 → `flake8`(스타일)
+  → `xenon`(순환복잡도 10 이하 게이트, `coding-standards` 지표 자동
+  강제) → `coverage`+`unittest`(단위테스트+커버리지). `src/`·`tests/`가
+  아직 없으면 해당 단계는 생략(실패 아님).
+- 저장소가 public이므로 CI 로그·상태는 외부에 노출됨(비밀값/토큰을
+  워크플로에 하드코딩하지 않는다).
 
 ### 문서 작성 스타일
 
