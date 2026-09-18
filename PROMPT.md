@@ -394,4 +394,13 @@ integration-tester 스킬, integration-test-agent, architecture-designer 갱신�
 > PR이 진행될 때, Action을 실행해서 지속적 통합과 지속적 테스트를 수행해줘.
 
 **Claude:**
-`.github/workflows/ci.yml` 신규 생성(pull_request→main 트리거, Python 3.14 설정, flake8 lint, xenon으로 순환복잡도≤10 자동 게이트, coverage+unittest 단위테스트 — src/tests 없으면 생략). xenon/coverage 로컬 설치. GitHub 저장소에 `delete_branch_on_merge=true` 적용, `main` 브랜치 보호 규칙 설정 예정(PR 필수, CI 통과 필수, 승인 0명, 강제push/삭제 금지). coding-standards 스킬에 CI 자동게이트 안내 추가. CLAUDE.md에 "GitHub 브랜치 보호 및 CI" 절 신설(저장소 public 유의 포함). 커밋 전.
+`.github/workflows/ci.yml` 신규 생성(pull_request→main 트리거, Python 3.14 설정, flake8 lint, xenon으로 순환복잡도≤10 자동 게이트, coverage+unittest 단위테스트 — src/tests 없으면 생략). xenon/coverage 로컬 설치. coding-standards 스킬에 CI 자동게이트 안내 추가. CLAUDE.md에 "GitHub 브랜치 보호 및 CI" 절 신설(저장소 public 유의 포함). 전체 커밋(d01806a) 후 origin의 feature/0.0.1로 push. GitHub 저장소에 `delete_branch_on_merge=true` 적용, `main` 브랜치 보호 규칙 설정 완료(required_status_checks: "Lint, complexity gate, unit tests" strict, 승인 0명, enforce_admins false, 강제push/삭제 금지, PR 대화 해결 필수).
+
+---
+
+**User:**
+> @.claude/0_OEM_Sample\ 내 파일은 고객 요구사양서야. 이 사양서를 기반으로 우리 소프트웨어를 개발할 예정이야. CLAUDE.md와 같이 A-SPICE 기준으로 분석-설계-구현-테스트의 과정을 거치고 산출물을 작성해야 해.
+> 요구사양서를 분석하고 작업 계획을 제시해줘. 네가 제시한 각 phase 마다 분석~테스트 단계를 거쳐야해. 한 단계가 끝날 때마다 내가 리뷰하고, 리뷰를 승인하면 Git에 Merge해줘. 내가 확인해줘야 하는 것은 한 번에 문의해줘.
+
+**Claude:**
+OEM-SWR-001(전자식 차일드락 제어 SW, ASIL B 4건+QM 7건+비기능 2건+인터페이스 9건) 전문 추출·분석. 우선순위 계층별 5-phase 계획 제시(1.입력계약/유효성 2.안전최우선(ASIL B) 3.강제해제/잠금 4.운전자명령/일반기능 5.비기능) — 요구사항서·아키텍처서·추적매트릭스는 phase마다 새로 만들지 않고 누적. 4가지 확인사항(Python버전 3.12 vs 3.14, phase분할 방식, 브랜치전략, 리뷰단위) 한번에 질문 → 전부 권장안(3.14 유지/제안 분할대로/phase별 브랜치/phase완료 후 1회 리뷰)으로 확정. 계획을 메모리에 저장. main이 feature/0.0.1보다 3커밋 뒤처져 있어 Phase 1 브랜치 분기 전 main 동기화 필요 확인.
