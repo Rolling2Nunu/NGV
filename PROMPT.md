@@ -211,3 +211,28 @@ requirements-analyst 스킬, requirements-analyzer 에이전트, PROMPT.md 갱�
 
 **Claude:**
 저작권 무시 결정 확인. requirements-analyst·architecture-designer SKILL.md를 실제 템플릿 경로/목차/컬럼으로 전면 갱신(임시구조 삭제, TPL-SWE1-001 12장·TPL-SWE2-001 15장 목차 반영, Input/Output을 요구사항표+6장 인터페이스표 이중 반영, 다이어그램 PlantUML/Mermaid→drawio 전환, 추적매트릭스 컬럼을 TPL-TRC-001 9컬럼으로 교체, 실제 docx/xlsx 파일 복사 후 채우는 절차 추가). 두 서브에이전트 정의 파일도 경로/절차 동기화. aspice-auditor에 등록부(PRC-TPL-001) 참고 절 추가. 커밋 전.
+
+---
+
+**User:**
+> 커밋, 푸시해줘. 변경점 요약해서 적어줘
+
+**Claude:**
+전체 변경 커밋(b464e12) 및 push 완료. 변경 요약: 템플릿 파일 27건(0_OEM_Sample, 0_WP_Templates) 저장소 반영, requirements-analyst/architecture-designer SKILL.md 실템플릿 구조 전면 반영, 두 에이전트 경로 동기화, aspice-auditor 등록부 참고 절 추가, CLAUDE.md·PROMPT.md 갱신.
+
+---
+
+**User:**
+> 푸시하면 브랜트 버저닝이 업데이트 되어야 하는데? 안되고 있네
+> 브랜치는 유지하고, 그 안에 트리가 생겨야지
+
+**Claude:**
+git 내부 상태 점검(로컬/원격 SHA 동일, feature/0.0.1만 존재, 원격 HEAD도 feature/0.0.1, 커밋 7개 정상 축적, 파일트리 일치) — git 관점에서는 이상 없음 확인, 정확히 어떤 화면을 보고 계신지 재질문.
+
+---
+
+**User:**
+> 상세설계에 대해서도 서브에이젠트와 스킬을 구성해줘
+
+**Claude:**
+`.claude/skills/detailed-designer/SKILL.md`(TPL-SWE3-001 15장 목차, 모듈분해/호출관계(.drawio)/함수계약(사전·사후조건·부작용·예외·시간제약)/알고리즘·정책·상태전이/오류·방어동작/코딩표준(미정시 확인)/모듈단위 SOLID·응집도결합도 계승/TPL-TRC-001 Detailed Design 컬럼 추적)와 `.claude/agents/detailed-design-agent.md`(아키텍처 산출물 선행확인 후 스킬 로드해 작업하는 서브에이전트) 생성. 커밋 전.
