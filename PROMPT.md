@@ -84,3 +84,230 @@ origin 주소가 이미 동일하게 설정되어 있음을 확인하고, `git a
 
 **Claude:**
 `feature/0.0.1` 브랜치에서 CLAUDE.md, PROMPT.md, .claude/(skills, agents, settings.json)를 최초 커밋하고 origin(https://github.com/Rolling2Nunu/NGV.git)으로 push함.
+
+---
+
+**User:**
+> GitHub에서 브랜치 확인해줘
+
+**Claude:**
+`git ls-remote --heads origin`으로 원격 저장소를 조회하여 `feature/0.0.1` 브랜치가 정상적으로 존재하고 로컬 push 커밋(e127dbb)과 일치함을 확인함.
+
+---
+
+**User:**
+> 커밋하고 푸시해줘
+
+**Claude:**
+사용자가 IDE에서 직접 수정한 CLAUDE.md 변경(Repository/문서 언어 정책 섹션을 "프로젝트 개발 정책"—분석→설계→구현→테스트 순서 및 단계별 템플릿 기반 산출물 요구—로 대체)을 확인하고, `feature/0.0.1` 브랜치에 커밋(bd3aae2) 후 origin으로 push함.
+
+---
+
+**User:**
+> 로컬에는 업데이트가 안되어 있네. 로컬에 쌓다가 원격으로 커밋하게끔하자.
+
+**Claude:**
+워크플로 의미를 확인 질문한 뒤, "커밋 요청 시 로컬에만 커밋, 원격(push) 요청 시에만 origin에 반영"하는 방식으로 확정함. 밀려있던 PROMPT.md 변경을 로컬 커밋(4a00fff)으로 반영(push는 하지 않음).
+
+---
+
+**User:**
+> 원격에 올리는 건 Push 였던거 같은데.
+
+**Claude:**
+용어 정정을 반영해, "원격 커밋"이라는 부정확한 표현 대신 "push/푸시"로만 원격 업로드를 지칭하도록 워크플로 메모리를 수정함.
+
+---
+
+**User:**
+> 커밋해줘
+
+**Claude:**
+밀려있던 PROMPT.md 변경 사항을 로컬 커밋(26c60fb)으로 반영함(push는 하지 않음, 로컬 브랜치가 origin보다 2커밋 앞선 상태).
+
+---
+
+**User:**
+> 요구사항 분석을 위한 서브에이전트와 스킬 초안을 생성해줘.
+> 다음을 만족해야해
+>  - 내가 제사한 탬플릿을 준수해야 해
+>  - ISO 26262와 A-SPICE 표준을 준수해야 해
+>  - 기능 요구사항의 경우 UML/SysML을 이용해서 다이어그램으로 표현할 수 있어야 해
+>  - 비기능 요구사항은 ISO25010의 기분에 따라 작성하고, 검증방안을 함께 제시해줘. 단, 실행불가능한 검증 방안을 제시하지마.
+>  - 모든 요구사항은 사람이 이해하는데 문제가 없어야 해. 명확성을 확보해
+>  - 모든 요구사항은 이후 산출물에서 양방향 추적 가능해야 해.  추적을 위한 방안을 제시하고, 그 방안대로 추적성을 유지해.
+>  - 모든 요구사항은 일관성을 확보해.
+>  - 기능 요구사항에는 하위 개발서에서 참고할 수 있는 자연어로 Input/Output 정보를 선언하도록 해.
+
+**Claude:**
+템플릿 전달 방식을 확인(사용자가 "템플릿은 나중에 줄게"라고 응답)한 뒤, `.claude/skills/requirements-analyst/SKILL.md`(템플릿 우선 원칙 + 템플릿 도착 전 임시 구조, ISO 26262/A-SPICE/ISO25010 준수 규칙, UML/SysML 다이어그램 규칙, 실행 가능한 검증방안 규칙, 명확성/일관성 규칙, 추적 매트릭스 기반 양방향 추적성 방안, Input/Output 자연어 선언 규칙)와 `.claude/agents/requirements-analyzer.md`(해당 스킬을 반드시 로드하고 템플릿 유무를 먼저 확인한 뒤 요구사항을 작성하는 서브 에이전트)를 생성함.
+
+---
+
+**User:**
+> 커밋하고, 푸시해줘
+
+**Claude:**
+requirements-analyst 스킬, requirements-analyzer 에이전트, PROMPT.md 갱신분을 커밋(89d80fe)하고 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> 구조를 로컬에 커밋한 후에 원격에 푸시해줘
+
+**Claude:**
+밀려있던 PROMPT.md 로그를 로컬 커밋(392474b)한 뒤 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> 아키텍처 설계를 위한 서브에이전트와 스킬 초안을 생성해줘.
+> 다음을 만족해야해
+> - A-SPICE와 ISO 26262 Part 6의 아키텍처 설계 원칙을 준수해줘.
+> - **반드시** 높은 응집력과 낮은 결합도를 유지해줘
+> - 변경에 유연하게 대처할 수 있는 아키텍처를 구성해줘.
+> - SOLID 원칙을 준수해줘.
+> - 컴포넌트의 인터페이스를 **반드시** 정의하고, 컴포넌트 사이에는 인터페이스로만 통신하게 해줘.
+> - 컴포넌트의 통합 순서를 정의해줘.
+> - 네가 적절한 아키텍처 구조를 먼저 나에게 제안하고, 내가 선정할 수 있도록 해줘.
+> - 내가 제시한 아키텍처 설계서 양식에 따라 작성해줘.
+
+**Claude:**
+`.claude/skills/architecture-designer/SKILL.md`(양식 우선 원칙+임시 구조, A-SPICE SYS.3/SWE.2·ISO 26262 Part 6 반영 사항, "후보 아키텍처 제안→사용자 선정→상세설계" 필수 절차, 응집도/결합도/변경 유연성/SOLID 원칙, 컴포넌트 인터페이스 필수 정의 규칙, 통합 순서 정의 규칙, requirements-analyst 추적 매트릭스 연계)와 `.claude/agents/architecture-design-agent.md`(해당 스킬을 반드시 로드하고 위 절차를 따르는 서브 에이전트)를 생성함. 아직 커밋 전.
+
+---
+
+**User:**
+> 진행 및 대답, 모든 문서는 단답형으로 할수 있게 바꿔줘. 예를들어,) 투 파일을 생성, 그에 맞게 갱신, 커밋/푸시 푤요시 요청 필수
+
+**Claude:**
+적용 범위 확인(기술 산출물 포함 전체로 선택). CLAUDE.md에 "문서 작성 스타일" 정책(단답형/개조식) 추가. aspice-auditor·requirements-analyst·architecture-designer 3개 SKILL.md에 동일 정책 절 추가. 대화 응답도 이후 단답형 적용.
+
+---
+
+**User:**
+> 0_OEM_Sample과 0_WP_Templates 폴더 내 파일들을 분석하고, 나중에 개발할 때 양식으로 쓸거야
+
+**Claude:**
+`.claude/0_OEM_Sample`, `.claude/0_WP_Templates` 폴더 확인(OEM 샘플 요구사항서 + SWE.1~6/추적성/리뷰/SBOM 정식 템플릿 다수). 분석 서브에이전트(fork) 백그라운드 실행, 완료 시 SKILL.md 임시 구조를 실제 템플릿 구조로 갱신 예정.
+
+---
+
+**User:**
+> (진행 상황 확인 질문 2건 — 진행 중 응답만)
+
+**Claude:**
+분석 서브에이전트 백그라운드 실행 중 상태 안내.
+
+---
+
+**System:**
+분석 서브에이전트 완료 보고 수신 — 저작권 표시(Synetics 교육용, 과정 밖 배포 제한) 발견해 사용자에게 확인 요청, 템플릿 경로 불일치(`templates/`→실제 `.claude/0_WP_Templates`) 확인, TPL-SWE1-001(12장)/TPL-SWE2-001(15장)/TPL-TRC-001(9컬럼) 등 실제 구조 확보.
+
+---
+
+**User:**
+> 저작권은 무시해도 돼
+
+**Claude:**
+저작권 무시 결정 확인. requirements-analyst·architecture-designer SKILL.md를 실제 템플릿 경로/목차/컬럼으로 전면 갱신(임시구조 삭제, TPL-SWE1-001 12장·TPL-SWE2-001 15장 목차 반영, Input/Output을 요구사항표+6장 인터페이스표 이중 반영, 다이어그램 PlantUML/Mermaid→drawio 전환, 추적매트릭스 컬럼을 TPL-TRC-001 9컬럼으로 교체, 실제 docx/xlsx 파일 복사 후 채우는 절차 추가). 두 서브에이전트 정의 파일도 경로/절차 동기화. aspice-auditor에 등록부(PRC-TPL-001) 참고 절 추가. 커밋 전.
+
+---
+
+**User:**
+> 커밋, 푸시해줘. 변경점 요약해서 적어줘
+
+**Claude:**
+전체 변경 커밋(b464e12) 및 push 완료. 변경 요약: 템플릿 파일 27건(0_OEM_Sample, 0_WP_Templates) 저장소 반영, requirements-analyst/architecture-designer SKILL.md 실템플릿 구조 전면 반영, 두 에이전트 경로 동기화, aspice-auditor 등록부 참고 절 추가, CLAUDE.md·PROMPT.md 갱신.
+
+---
+
+**User:**
+> 푸시하면 브랜트 버저닝이 업데이트 되어야 하는데? 안되고 있네
+> 브랜치는 유지하고, 그 안에 트리가 생겨야지
+
+**Claude:**
+git 내부 상태 점검(로컬/원격 SHA 동일, feature/0.0.1만 존재, 원격 HEAD도 feature/0.0.1, 커밋 7개 정상 축적, 파일트리 일치) — git 관점에서는 이상 없음 확인, 정확히 어떤 화면을 보고 계신지 재질문.
+
+---
+
+**User:**
+> 상세설계에 대해서도 서브에이젠트와 스킬을 구성해줘
+
+**Claude:**
+`.claude/skills/detailed-designer/SKILL.md`(TPL-SWE3-001 15장 목차, 모듈분해/호출관계(.drawio)/함수계약(사전·사후조건·부작용·예외·시간제약)/알고리즘·정책·상태전이/오류·방어동작/코딩표준(미정시 확인)/모듈단위 SOLID·응집도결합도 계승/TPL-TRC-001 Detailed Design 컬럼 추적)와 `.claude/agents/detailed-design-agent.md`(아키텍처 산출물 선행확인 후 스킬 로드해 작업하는 서브에이전트) 생성. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+detailed-designer 스킬, detailed-design-agent, PROMPT.md 갱신분을 커밋(6d6c020) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> 구현에 대한 서브 에이전트와 스킬도 만들어줘。@CLAUDE.md 의 구현지침을 준수하는 스킬을 생성한다.
+> (중간에 "멈춰"로 1회 중단 후 동일 요청 재전달)
+
+**Claude:**
+사용자가 CLAUDE.md에 직접 추가한 "구현 지침"(Python 3.14/unittest, Coding 서브에이전트, TDD 방식+TDD 스킬, 품질지표: 함수라인수50/순환복잡도10/중복7라인/Doxygen20%/네이밍3자+카멜케이스) 확인. `.claude/skills/tdd/SKILL.md`(Red-Green-Refactor 절차, 테스트작성규칙, unittest), `.claude/skills/coding-standards/SKILL.md`(품질지표 표+오픈소스 도구 실측 필수, Doxygen 규칙, 네이밍, TPL-TRC-001 Code컬럼 추적, TPL-SBOM-001 연계), `.claude/agents/coding-agent.md`(tdd+coding-standards 스킬 모두 로드, 상세설계 선행확인, 실측 검증 필수인 서브에이전트) 3개 파일 생성. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+coding-agent, tdd·coding-standards 스킬, CLAUDE.md·PROMPT.md 갱신분을 커밋(84efe35) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> TDD를 위한 툴들을 선언했니?
+
+**Claude:**
+coding-standards/SKILL.md에 radon(순환복잡도/라인수)·pylint --duplicate-code(중복)·flake8/pylint(스타일) 예시로 선언되어 있음을 확인. 단 이 머신에 Python 인터프리터 자체가 없어(Windows Store 스텁만) 실측 불가 상태임을 안내.
+
+---
+
+**User:**
+> Python 3.14 설치되어 있는지 확인해줘
+
+**Claude:**
+python/py 명령 모두 Windows Store 스텁뿐, Program Files/AppData/레지스트리 전부 미설치 확인. 설치 필요 안내.
+
+---
+
+**User:**
+> Python 3.14 설치해줘
+
+**Claude:**
+winget으로 Python.Python.3.14(3.14.7) 설치 완료, pip 정상 동작 확인. 사용자 PATH에도 등록됨(단 현재 세션은 설치 전 프로세스라 즉시 반영 안 됨, 새 세션부터 인식).
+
+---
+
+**User:**
+> 현재까지 정리한 내용에서 호출해야하는 외부 툴 중 연결이 안되어 있다면, 설치 또는 연결해줘
+
+**Claude:**
+스킬 문서에 선언된 외부 툴 전수 점검 후 pip으로 radon·pylint·flake8 설치 및 동작 확인(unittest는 표준 라이브러리라 별도 설치 불필요, docx/xlsx는 Claude Code 내장 스킬이라 이미 연결, drawio는 외부 툴 의존 없음).
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+PROMPT.md 로그 갱신분만 커밋 후 push(툴 설치 자체는 저장소 외부 시스템 변경이라 커밋 대상 아님).
+
+---
+
+**User:**
+> TDD 스킬을 다음 링크의 TDD 스킬로 변경해줘. 단, 기존 스킬에서 반영할 부분은 적용해줘.
+> 링크: https://github.com/obra/superpowers
+> 테스트 코드를 작성할 때, 사용한 기법, 긍정/부정 케이스 여부, 테스트 함수에도 Doxygen 형식의 테스트 목적을 포함한 설명을 작성하도록 설정해줘.
+
+**Claude:**
+obra/superpowers의 test-driven-development/SKILL.md·writing-good-tests.md 원문 확보(WebFetch) 후 한글 번역·Python/unittest 각색해 `.claude/skills/tdd/SKILL.md`(Iron Law, Red-Green-Refactor, 좋은/나쁜 예, 합리화 반박표, 경고신호, 뮤테이션점검, 체크리스트) 전면 교체 및 `.claude/skills/tdd/writing-good-tests.md`(원칙1 깨짐의 이름, 원칙2 실제대상 실행, 게이트함수, 경고신호) 신규 생성. 기존 NGV tdd 스킬의 unittest 표준·상세설계 커버리지 매핑·test_*.py 명명은 "11장 이 프로젝트 적용 사항"으로 보존. 신규 요구사항(테스트 기법/긍정·부정 케이스/Doxygen 목적설명)은 "6장 테스트 문서화 규칙"으로 반영(`@brief`/`@technique`/`@case` docstring 태그). coding-agent.md 절차에도 반영. 커밋 전.
