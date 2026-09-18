@@ -301,3 +301,13 @@ winget으로 Python.Python.3.14(3.14.7) 설치 완료, pip 정상 동작 확인.
 
 **Claude:**
 PROMPT.md 로그 갱신분만 커밋 후 push(툴 설치 자체는 저장소 외부 시스템 변경이라 커밋 대상 아님).
+
+---
+
+**User:**
+> TDD 스킬을 다음 링크의 TDD 스킬로 변경해줘. 단, 기존 스킬에서 반영할 부분은 적용해줘.
+> 링크: https://github.com/obra/superpowers
+> 테스트 코드를 작성할 때, 사용한 기법, 긍정/부정 케이스 여부, 테스트 함수에도 Doxygen 형식의 테스트 목적을 포함한 설명을 작성하도록 설정해줘.
+
+**Claude:**
+obra/superpowers의 test-driven-development/SKILL.md·writing-good-tests.md 원문 확보(WebFetch) 후 한글 번역·Python/unittest 각색해 `.claude/skills/tdd/SKILL.md`(Iron Law, Red-Green-Refactor, 좋은/나쁜 예, 합리화 반박표, 경고신호, 뮤테이션점검, 체크리스트) 전면 교체 및 `.claude/skills/tdd/writing-good-tests.md`(원칙1 깨짐의 이름, 원칙2 실제대상 실행, 게이트함수, 경고신호) 신규 생성. 기존 NGV tdd 스킬의 unittest 표준·상세설계 커버리지 매핑·test_*.py 명명은 "11장 이 프로젝트 적용 사항"으로 보존. 신규 요구사항(테스트 기법/긍정·부정 케이스/Doxygen 목적설명)은 "6장 테스트 문서화 규칙"으로 반영(`@brief`/`@technique`/`@case` docstring 태그). coding-agent.md 절차에도 반영. 커밋 전.
