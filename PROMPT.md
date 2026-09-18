@@ -343,3 +343,21 @@ CLAUDE.md/.gitignore 커밋(11ace78)·push. gh CLI 미설치 확인 후 winget �
 
 **Claude:**
 gh auth status로 인증 완료 확인 후 PR 생성·병합·기본 브랜치 전환까지 이어서 실행.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+PROMPT.md 로그 갱신분을 feature/0.0.1에 커밋(42d5c0c) 후 push함(main 병합은 별도 요청 시 진행).
+
+---
+
+**User:**
+> 소프트웨어 통합 테스트를 위한 서브에이전트와 스킬 생성해줘.
+> 테스트 기법은 ISO26262 Part6에 근거하고, 함수 커버리지 및 Call 커버리지는 100% 달성해줘.
+> 테스트 베이시스인 아키텍처 설계서의 인터페이스와 통합 순서에 근거하여 테스트를 진행하도록 해줘.
+
+**Claude:**
+`.claude/skills/integration-tester/SKILL.md`(TPL-SWE5-001 14장 목차, 아키텍처 인터페이스+통합순서를 테스트 베이시스로 강제, ISO26262 Part6 공개 기법 목록(요구사항기반/인터페이스/경계값/동등분할/결함주입/자원사용), 함수커버리지 100%(coverage.py)·Call커버리지 100%(호출그래프 대조, 실측불가 시 단정 금지) 요구, TPL-SWE5-002/003 컬럼 기준 케이스·결과 작성, TPL-TRC-001 SWE.5/Coverage 컬럼 추적)와 `.claude/agents/integration-test-agent.md`(integration-tester+tdd 스킬 로드, 통합순서 준수, 커버리지 실측 필수인 서브에이전트) 생성. architecture-designer 스킬/에이전트의 11장을 "전략 수준만, 상세 통합순서표는 SWE.5(신규 스킬) 단일 관리"로 갱신(중복 제거). 커밋 전.

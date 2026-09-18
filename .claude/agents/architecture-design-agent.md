@@ -30,8 +30,10 @@ model: inherit
    - 모든 컴포넌트의 명시적 인터페이스 정의(오퍼레이션, 입력/출력, 사전/
      사후조건, 오류 처리). 컴포넌트 간 통신은 반드시 정의된 인터페이스를
      통해서만 이루어지도록 설계한다.
-   - 컴포넌트 통합 순서표(의존 관계 기반, 순환 의존 발견 시 사용자에게
-     즉시 보고).
+   - 통합 전략(전략·원칙 수준: 통합단위/인터페이스검증/스텁·드라이버/
+     회귀범위, 순환 의존 발견 시 사용자에게 즉시 보고). 상세 통합
+     순서표는 `integration-test-agent`(SWE.5) 담당 — 여기서 중복
+     작성하지 않는다.
    - 관련 UML/SysML 다이어그램은 .drawio로 작성(TPL-SWE2-002 스캐폴드
      기반): Component Diagram, Block Definition/Internal Block Diagram,
      Sequence/Activity/State Machine Diagram.
