@@ -361,3 +361,37 @@ PROMPT.md 로그 갱신분을 feature/0.0.1에 커밋(42d5c0c) 후 push함(main 
 
 **Claude:**
 `.claude/skills/integration-tester/SKILL.md`(TPL-SWE5-001 14장 목차, 아키텍처 인터페이스+통합순서를 테스트 베이시스로 강제, ISO26262 Part6 공개 기법 목록(요구사항기반/인터페이스/경계값/동등분할/결함주입/자원사용), 함수커버리지 100%(coverage.py)·Call커버리지 100%(호출그래프 대조, 실측불가 시 단정 금지) 요구, TPL-SWE5-002/003 컬럼 기준 케이스·결과 작성, TPL-TRC-001 SWE.5/Coverage 컬럼 추적)와 `.claude/agents/integration-test-agent.md`(integration-tester+tdd 스킬 로드, 통합순서 준수, 커버리지 실측 필수인 서브에이전트) 생성. architecture-designer 스킬/에이전트의 11장을 "전략 수준만, 상세 통합순서표는 SWE.5(신규 스킬) 단일 관리"로 갱신(중복 제거). 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+integration-tester 스킬, integration-test-agent, architecture-designer 갱신분, PROMPT.md를 커밋(b9afe75) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> sw-system-tester.md와 관련 스킬이 추가되었어 분석하여 추가해줘
+
+**Claude:**
+사용자가 직접 추가한 `.claude/agents/sw-system-tester.md`(SWE.6 QA 서브에이전트)와 `.claude/skills/sw-system-test/SKILL.md`(ISO26262 Part6/A-SPICE SWE.4-6/ISO29119·ISTQB/ISO25000 기반 시스템 테스트 케이스 설계 방법론) 분석. 실제 TPL-SWE6-001/002.xlsx를 unzip+OOXML 파싱으로 직접 열어 시트명·컬럼 확인(Verification Specification: Test ID/SW Req/Level-Environment/Stimulus/Expected Result/Technique/Execution, Verification Results: Test ID/SW Req/Result/Actual Result/Evidence Locator/Execution Time/Scope Note — 기능/비기능 분리 시트나 확정근거 컬럼은 템플릿에 없음을 확인). 두 파일을 프로젝트 컨벤션(실제 템플릿 경로/등록부 ID/추적매트릭스 SWE.6·Coverage 컬럼/단답형 스타일)에 맞춰 갱신, 비기능은 확장 시트로 보완. PICT 오픈소스 도구 winget 설치·동작 확인(페어와이즈/전수조합 생성용). CLAUDE.md에 "테스트 지침" 절 신설(SWE.4/5/6 담당 에이전트 정리, 개발생명주기의 누락됐던 테스트 단계 문서화). 커밋 전.
+
+---
+
+**User:**
+> 서브에이전트와 각 서브에이전트에서 사용하는 시킬의 경계를 명혹히 정리해줘.서로 중복되는 내용이 없도록 만들어줘.
+
+**Claude:**
+전체 스킬 8개(aspice-auditor/requirements-analyst/architecture-designer/detailed-designer/tdd/coding-standards/integration-tester/sw-system-test)와 에이전트 7개를 전수 재검토. 신규 `.claude/skills/aspice-common/SKILL.md` 생성(문서스타일/저작권유의/템플릿사용절차/TPL-TRC-001 9컬럼 스키마+소유자 매핑표/공통금지사항/에이전트-스킬 역할경계 원칙을 단일 정의). 이 과정에서 실제 버그 발견·수정: architecture-designer가 `Architecture`와 `Detailed Design` 컬럼을 동시에 소유한다고 잘못 명시(detailed-designer와 충돌) → `Architecture`만 소유하도록 수정. `SWE.4` 컬럼 소유자가 어디에도 명시 안 돼 있던 공백 → `tdd` 스킬이 소유하도록 명시. 8개 스킬 모두 반복되던 문서작성스타일/저작권유의/템플릿절차/추적매트릭스9컬럼 전체 재기술/공통 하지말것 항목을 제거하고 aspice-common 참조로 교체, 각 스킬 고유 내용만 남김. 7개 에이전트 모두 스킬의 상세 기준(품질지표표/기법목록/템플릿컬럼/긴 금지목록) 재기술을 제거하고 "스킬 로드→선행확인→스킬기준 적용→담당 컬럼만 갱신" 흐름만 남김. 커밋 전.
+
+---
+
+**User:**
+> Git의 브랜치 정책을 적용해줘.
+> 일반적으로 AI를 활용한 바이브 코딩을 이용하여 GitHub를 사용했을 때 적용되는 정책으로 해줘. Action을 설정해줘.
+> PR이 진행될 때, Action을 실행해서 지속적 통합과 지속적 테스트를 수행해줘.
+
+**Claude:**
+`.github/workflows/ci.yml` 신규 생성(pull_request→main 트리거, Python 3.14 설정, flake8 lint, xenon으로 순환복잡도≤10 자동 게이트, coverage+unittest 단위테스트 — src/tests 없으면 생략). xenon/coverage 로컬 설치. GitHub 저장소에 `delete_branch_on_merge=true` 적용, `main` 브랜치 보호 규칙 설정 예정(PR 필수, CI 통과 필수, 승인 0명, 강제push/삭제 금지). coding-standards 스킬에 CI 자동게이트 안내 추가. CLAUDE.md에 "GitHub 브랜치 보호 및 CI" 절 신설(저장소 public 유의 포함). 커밋 전.

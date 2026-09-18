@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: Lint, complexity gate, unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install radon xenon flake8 pylint coverage
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint (flake8)
+        run: |
+          if [ -d src ]; then
+            flake8 src
+          else
+            echo "src/ 없음 — 아직 구현 코드 없음, lint 생략"
+          fi
+
+      - name: Complexity gate (coding-standards: cyclomatic complexity <= 10)
+        run: |
+          if [ -d src ]; then
+            xenon --max-absolute B --max-modules B --max-average A src
+          else
+            echo "src/ 없음 — 복잡도 게이트 생략"
+          fi
+
+      - name: Unit tests + coverage (unittest)
+        run: |
+          if [ -d tests ]; then
+            coverage run -m unittest discover -s tests -v
+            coverage report -m
+          else
+            echo "tests/ 없음 — 단위테스트 생략"
+          fi
