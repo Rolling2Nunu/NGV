@@ -253,3 +253,51 @@ detailed-designer 스킬, detailed-design-agent, PROMPT.md 갱신분을 커밋(6
 
 **Claude:**
 사용자가 CLAUDE.md에 직접 추가한 "구현 지침"(Python 3.14/unittest, Coding 서브에이전트, TDD 방식+TDD 스킬, 품질지표: 함수라인수50/순환복잡도10/중복7라인/Doxygen20%/네이밍3자+카멜케이스) 확인. `.claude/skills/tdd/SKILL.md`(Red-Green-Refactor 절차, 테스트작성규칙, unittest), `.claude/skills/coding-standards/SKILL.md`(품질지표 표+오픈소스 도구 실측 필수, Doxygen 규칙, 네이밍, TPL-TRC-001 Code컬럼 추적, TPL-SBOM-001 연계), `.claude/agents/coding-agent.md`(tdd+coding-standards 스킬 모두 로드, 상세설계 선행확인, 실측 검증 필수인 서브에이전트) 3개 파일 생성. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+coding-agent, tdd·coding-standards 스킬, CLAUDE.md·PROMPT.md 갱신분을 커밋(84efe35) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> TDD를 위한 툴들을 선언했니?
+
+**Claude:**
+coding-standards/SKILL.md에 radon(순환복잡도/라인수)·pylint --duplicate-code(중복)·flake8/pylint(스타일) 예시로 선언되어 있음을 확인. 단 이 머신에 Python 인터프리터 자체가 없어(Windows Store 스텁만) 실측 불가 상태임을 안내.
+
+---
+
+**User:**
+> Python 3.14 설치되어 있는지 확인해줘
+
+**Claude:**
+python/py 명령 모두 Windows Store 스텁뿐, Program Files/AppData/레지스트리 전부 미설치 확인. 설치 필요 안내.
+
+---
+
+**User:**
+> Python 3.14 설치해줘
+
+**Claude:**
+winget으로 Python.Python.3.14(3.14.7) 설치 완료, pip 정상 동작 확인. 사용자 PATH에도 등록됨(단 현재 세션은 설치 전 프로세스라 즉시 반영 안 됨, 새 세션부터 인식).
+
+---
+
+**User:**
+> 현재까지 정리한 내용에서 호출해야하는 외부 툴 중 연결이 안되어 있다면, 설치 또는 연결해줘
+
+**Claude:**
+스킬 문서에 선언된 외부 툴 전수 점검 후 pip으로 radon·pylint·flake8 설치 및 동작 확인(unittest는 표준 라이브러리라 별도 설치 불필요, docx/xlsx는 Claude Code 내장 스킬이라 이미 연결, drawio는 외부 툴 의존 없음).
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+PROMPT.md 로그 갱신분만 커밋 후 push(툴 설치 자체는 저장소 외부 시스템 변경이라 커밋 대상 아님).
