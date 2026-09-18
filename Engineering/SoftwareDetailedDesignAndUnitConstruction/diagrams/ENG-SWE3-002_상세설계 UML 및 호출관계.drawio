@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-18T00:00:00.000Z" agent="detailed-design-agent" version="24.7.17" type="device" copyright="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요">
+  <diagram id="class-call-diagram" name="Page-1 (클래스/호출관계 다이어그램)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="ENG-SWE3-001 — 클래스/호출관계 다이어그램 (Phase 1: 입력 계약/유효성 상세설계)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="1200" height="35" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="vehicle_actor" value="Vehicle ECU&#10;(외부 액터)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="150" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- MOD-VADP-001 VehicleAdapter -->
+        <mxCell id="cls_vadp" value="VehicleAdapter&#10;«MOD-VADP-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="220" width="230" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_vadp_attr" value="- _core: InputValidityCore&#10;- _clock: ClockPort" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_vadp">
+          <mxGeometry y="30" width="230" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_vadp_ops" value="+ FN-VADP-001 build_raw_signals(wire)&#10;+ FN-VADP-002 handle_vehicle_signal(wire)" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_vadp">
+          <mxGeometry y="60" width="230" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ClockPort interface -->
+        <mxCell id="cls_clockport" value="«Protocol»&#10;ClockPort&#10;«MOD-PORTS-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=42;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#767171;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="560" y="40" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_clockport_ops" value="+ FN-CLK-000 now_s(): float" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_clockport">
+          <mxGeometry y="42" width="230" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- SystemClockAdapter -->
+        <mxCell id="cls_sysclock" value="SystemClockAdapter&#10;«MOD-CLK-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;" vertex="1" parent="1">
+          <mxGeometry x="560" y="200" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_sysclock_ops" value="+ FN-CLK-001 now_s(): float&#10;  (time.monotonic() 기반)" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_sysclock">
+          <mxGeometry y="30" width="230" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- FakeClockAdapter -->
+        <mxCell id="cls_fakeclock" value="FakeClockAdapter&#10;«MOD-CLK-001, PC/SIL 시험 전용»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E2F0D9;strokeColor=#548235;" vertex="1" parent="1">
+          <mxGeometry x="560" y="320" width="230" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_fakeclock_attr" value="- _current_s: float" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_fakeclock">
+          <mxGeometry y="30" width="230" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_fakeclock_ops" value="+ FN-CLK-002 __init__(initial_s=0.0)&#10;+ FN-CLK-002 now_s(): float&#10;+ FN-CLK-003 advance(delta_s)&#10;+ FN-CLK-004 set(value_s)" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=11;" vertex="1" parent="cls_fakeclock">
+          <mxGeometry y="50" width="230" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- InputValidityCore facade -->
+        <mxCell id="cls_core" value="InputValidityCore (파사드)&#10;«MOD-CORE-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#17365D;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="900" y="220" width="260" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_core_ops" value="+ FN-CORE-001 submit_vehicle_snapshot(raw, received_at_s)&#10;+ FN-CORE-002 get_validated_inputs()&#10;+ FN-CORE-003 get_sw_state()&#10;+ FN-CORE-004 subscribe_state_changed(cb)&#10;+ FN-CORE-005 unsubscribe_state_changed(h)&#10;- FN-CORE-006 _run_pipeline(raw, received_at_s)" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;fontSize=10;" vertex="1" parent="cls_core">
+          <mxGeometry y="30" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="factory_note" value="FN-CORE-000 build_input_validity_core(clock: ClockPort) -&gt; InputValidityCore&#10;(합성근 팩토리 함수, 모듈 수준 — 3.1절)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#17365D;dashed=1;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="900" y="390" width="260" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Core pipeline boundary -->
+        <mxCell id="pipeline_boundary" value="코어 내부 파이프라인(순차 오케스트레이션, 서로 직접 호출 금지 — InputValidityCore만 호출)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#2F75B5;fillColor=#F5F9FD;fontColor=#595959;fontSize=12;verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="20" width="330" height="700" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cls_fmt" value="FormatValidator «MOD-FMT-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#2F75B5;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="60" width="290" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_fmt_ops" value="+ FN-FMT-001 check_format(raw): FormatCheckedSnapshot" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_fmt">
+          <mxGeometry y="26" width="290" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cls_rng" value="RangeValidator «MOD-RNG-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#2F75B5;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="180" width="290" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_rng_ops" value="+ FN-RNG-001 check_range(fc): RangeCheckedSnapshot" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_rng">
+          <mxGeometry y="26" width="290" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cls_rej" value="RejectionGate «MOD-REJ-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#2F75B5;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="300" width="290" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_rej_attr" value="- _latest: ValidInputSet" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_rej">
+          <mxGeometry y="26" width="290" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_rej_ops" value="+ FN-REJ-001 apply_rejection(rc): ValidInputSet&#10;+ FN-REJ-002 get_cached(): ValidInputSet" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_rej">
+          <mxGeometry y="44" width="290" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cls_fresh" value="FreshnessMonitor «MOD-FRESH-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FDE9D9;strokeColor=#C0504D;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="420" width="290" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_fresh_attr" value="- _clock: ClockPort" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_fresh">
+          <mxGeometry y="26" width="290" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_fresh_ops" value="+ FN-FRESH-001 check_freshness(vis): list[FreshnessResult]&#10;- _missing_timestamp_policy() [TODO]" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_fresh">
+          <mxGeometry y="44" width="290" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cls_state" value="StateManager «MOD-STATE-001»" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=0;resizeParentMax=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FDE9D9;strokeColor=#C0504D;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="540" width="290" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_state_attr" value="- _state: SwState&#10;- _subscribers: dict" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_state">
+          <mxGeometry y="26" width="290" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="cls_state_ops" value="+ FN-STATE-001 update_state(results)&#10;+ FN-STATE-002 get_sw_state()&#10;+ FN-STATE-003 subscribe_state_changed(cb)&#10;+ FN-STATE-004 unsubscribe_state_changed(h)&#10;- FN-STATE-005 _notify_subscribers(prev,new)&#10;- FN-STATE-006 _evaluate_recovery_policy() [TODO]" style="text;horizontal=1;align=left;verticalAlign=top;spacingLeft=6;overflow=hidden;fontSize=10;" vertex="1" parent="cls_state">
+          <mxGeometry y="56" width="290" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- edges: pipeline data flow -->
+        <mxCell id="e_fmt_rng" value="FormatCheckedSnapshot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;" edge="1" parent="1" source="cls_fmt" target="cls_rng">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_rng_rej" value="RangeCheckedSnapshot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;" edge="1" parent="1" source="cls_rng" target="cls_rej">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_rej_fresh" value="ValidInputSet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;" edge="1" parent="1" source="cls_rej" target="cls_fresh">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fresh_state" value="list[FreshnessResult]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;" edge="1" parent="1" source="cls_fresh" target="cls_state">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- edges: calls -->
+        <mxCell id="e_vehicle_vadp" value="OEM-IF-001,002,003,007,008,009" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="vehicle_actor" target="cls_vadp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vadp_core" value="FN-CORE-001 submit_vehicle_snapshot()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cls_vadp" target="cls_core">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_core_fmt" value="① 오케스트레이션 호출(순차)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;dashed=1;strokeColor=#17365D;fontColor=#17365D;" edge="1" parent="1" source="cls_core" target="pipeline_boundary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- edges: DIP / realization -->
+        <mxCell id="e_vadp_clock" value="now_s() 사용" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=9;strokeColor=#7030A0;fontColor=#7030A0;" edge="1" parent="1" source="cls_vadp" target="cls_clockport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fresh_clock" value="now_s() 사용(DIP)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=9;strokeColor=#7030A0;fontColor=#7030A0;" edge="1" parent="1" source="cls_fresh" target="cls_clockport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_sysclock_impl" value="구현(realize)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;fontSize=9;" edge="1" parent="1" source="cls_sysclock" target="cls_clockport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fakeclock_impl" value="구현(realize)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;fontSize=9;" edge="1" parent="1" source="cls_fakeclock" target="cls_clockport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="legend" value="범례&#10;실선 화살표 = 동기 호출/데이터 흐름&#10;보라색 열린 화살표 = 포트 사용(의존, DIP)&#10;점선 속빈 삼각/화살표 = 인터페이스 구현(realize)&#10;점선 파란 화살표 = 오케스트레이션 위임&#10;주황 박스 = 타이밍 제약 핵심 모듈(REQ-SW-F-004/005)" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="230" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="footer" value="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요 | 근거: ENG-SWE3-001 2장/3장/5장" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1050" width="1500" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="state-machine" name="Page-2 (상태전이 State Machine Diagram)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="s_title" value="ENG-SWE3-001 — 상태전이 상세 (MOD-STATE-001, FN-STATE-001 update_state)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="1000" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_boundary" value="StateManager.self._state (SwState) — 단일 소유(MOD-STATE-001)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#2F75B5;fillColor=#F5F9FD;fontColor=#595959;fontSize=13;verticalAlign=top;spacingTop=14;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="960" height="380" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="s_initial" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="130" y="240" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_normal" value="NORMAL&#10;(모든 필수 안전 관련 입력 FRESH)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#2F75B5;strokeWidth=2;fontColor=#000000;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="190" width="280" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_degraded" value="DEGRADED&#10;(하나 이상 필수 안전 관련 입력 STALE)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE9D9;strokeColor=#C0504D;strokeWidth=2;fontColor=#000000;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="190" width="280" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="s_e0" value="StateManager.__init__&#10;(초기값 NORMAL, 가정 — 확인 필요)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="s_initial" target="s_normal">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_e1" value="가드: any(r.freshness==STALE for r in results)&#10;FN-STATE-001 update_state() 호출&#10;100 ms 이내 전이(REQ-SW-F-005)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="s_normal" target="s_degraded">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_e2" value="가드: 전부 FRESH AND _evaluate_recovery_policy()==True&#10;[TODO — 현재 미구현, 항상 False 반환]&#10;근거 문서 필요(임의 규칙 미적용)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;fontSize=10;fontColor=#9C6500;strokeColor=#9C6500;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="s_degraded" target="s_normal">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_self_normal" value="가드: 전부 FRESH&#10;(전이 없음)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=-20;" edge="1" parent="1" source="s_normal" target="s_normal">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="150"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s_self_degraded" value="가드: 하나 이상 STALE&#10;(DEGRADED 유지)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=9;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=-20;" edge="1" parent="1" source="s_degraded" target="s_degraded">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="840" y="150"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="s_note" value="REQ-SW-F-001~003: 형식/범위 오류 입력은 이 상태전이와 별개로 RejectionGate가&#10;안전 판단 로직 평가 이전에 입력 단위로 거절한다(INVALID). NORMAL/DEGRADED 상태 자체를 변경하지 않는다&#10;(ENG-SWE2-001 8.1 미확정 2 — OEM 확인 필요, 임의로 연동시키지 않음).&#10;&#10;구독자 통지: 상태가 실제로 변경된 경우에만 FN-STATE-005(_notify_subscribers)가 등록된 콜백을&#10;(이전상태, 신규상태) 인자로 동기 호출한다. 콜백 내부 예외는 개별 격리되어 다른 구독자에 전파되지 않는다." style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="960" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_footer" value="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요 | 근거: ENG-SWE3-001 8장 상태전이 상세" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="650" width="960" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

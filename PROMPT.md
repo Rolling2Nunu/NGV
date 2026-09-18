@@ -404,3 +404,85 @@ integration-tester 스킬, integration-test-agent, architecture-designer 갱신�
 
 **Claude:**
 OEM-SWR-001(전자식 차일드락 제어 SW, ASIL B 4건+QM 7건+비기능 2건+인터페이스 9건) 전문 추출·분석. 우선순위 계층별 5-phase 계획 제시(1.입력계약/유효성 2.안전최우선(ASIL B) 3.강제해제/잠금 4.운전자명령/일반기능 5.비기능) — 요구사항서·아키텍처서·추적매트릭스는 phase마다 새로 만들지 않고 누적. 4가지 확인사항(Python버전 3.12 vs 3.14, phase분할 방식, 브랜치전략, 리뷰단위) 한번에 질문 → 전부 권장안(3.14 유지/제안 분할대로/phase별 브랜치/phase완료 후 1회 리뷰)으로 확정. 계획을 메모리에 저장. main이 feature/0.0.1보다 3커밋 뒤처져 있어 Phase 1 브랜치 분기 전 main 동기화 필요 확인 → PR #2 생성, CI 최초 실행에서 YAML 오류 발견(step name 콜론 미인용) 수정·재검증 후 병합, main 최신화. `feature/phase-1-input-validation` 브랜치를 main에서 생성. Phase 1(입력계약/유효성) requirements-analyzer 착수.
+
+---
+
+**User:**
+> (진행 상황 확인 질문 2건 — 진행 중 응답만)
+
+**System (서브에이전트 완료 알림):**
+requirements-analyzer Phase 1(입력계약/유효성) 완료. `Engineering/SoftwareRequirementsAnalysis/ENG-SWE1-001_SW 요구사항 명세서.docx`, 동 diagrams 폴더 상태전이 drawio 1개, `Engineering/Traceability/ENG-TRC-001_양방향 요구사항 추적 매트릭스.xlsx` 생성 확인(git status로 실재 검증). REQ-SW-F-001~005(OEM-SR-003 파생, 전부 ASIL B, 근거: OEM-SWR-001 5장) 도출, TPL-TRC-001 Upper Req/SW Req 컬럼만 채움. Phase 2로 넘길 미확정 사항 3건(DEGRADED-안전최우선로직 관계, 거절-DEGRADED 별개 처리 전제, DEGRADED→NORMAL 복귀조건) 발견. architecture-designer 스킬의 "후보안 제안→사용자 선정" 필수 게이트가 "phase당 1회 리뷰" 방침과 충돌 확인 — 처리 방식 사용자에게 질의 예정.
+
+---
+
+**User:**
+> (아키텍처 후보안 처리 방식 질문 응답) "후보안 제시 시점에만 별도로 짧게 물어보고, 나머지는 phase말 1회 리뷰"
+
+**Claude:**
+확정 사항을 메모리에 예외 규정으로 추가(후보안 선정만 별도 짧은 확인, 나머지는 phase말 1회 리뷰 유지). architecture-design-agent를 Phase 1 범위(입력 유효성/신선도 컴포넌트, VehicleSnapshot/DEGRADED 상태 모델)로 착수, 후보 아키텍처 제시 후 대기하도록 지시.
+
+---
+
+**System (서브에이전트 완료 알림):**
+architecture-design-agent가 후보 4개(A계층형/B파이프-필터/C이벤트기반/D포트-어댑터) 제시, 파일 생성 없이 대기. D(포트-어댑터, 조회+동기콜백 겸용) 추천 — 미확정 3건에 대해 답이 어느 쪽이든 수용 가능한 구조라는 이유. 사용자 선정 대기 중, AskUserQuestion으로 질의.
+
+---
+
+**User:**
+> (아키텍처 후보 선정) "D. 포트-어댑터(헥사고널) — 조회+동기콜백 겸용 포트 (추천)"
+
+**Claude:**
+D안 선정 확정. architecture-design-agent(기존 세션)에 SendMessage로 재개 지시 — TPL-SWE2-001/002 복사, 2장에 비교표+선정사유 기록, 3~13장 상세설계(컴포넌트/포트 인터페이스/상태전이/오류격리/통합전략) 작성, ENG-TRC-001 Architecture 컬럼 갱신.
+
+---
+
+**User:**
+> (진행 상황 확인 질문 — 진행 중 응답만)
+
+**System (서브에이전트 완료 알림):**
+architecture-design-agent Phase 1 상세설계(SWE.2) 완료. `Engineering/SoftwareArchitecturalDesign/ENG-SWE2-001_SW 아키텍처 설계서.docx`, `diagrams/ENG-SWE2-002_SW 아키텍처 UML.drawio`(컴포넌트+시퀀스 다이어그램) 생성, `ENG-TRC-001`의 Architecture 컬럼만 갱신(파일 존재 확인 완료). 컴포넌트 5개(CMP-FORMAT-VALIDATOR~CMP-STATE-MANAGER) + 파사드(CMP-INPUT-CORE) + 어댑터 2개(Vehicle/Clock) 확정, REQ-SW-F-001~005 매핑 완료. 미확정 3건은 "가정/미정" 명시 후 포트 설계로 흡수(강제 확정 안 함), ASIL/FFI는 근거문서 없어 "근거 문서 필요"로 유지. 지시대로 여기서 멈춤(상세설계/구현 진행 안 함).
+
+---
+
+**User:**
+> (진행 상황 확인 4회, TDD 적용 여부 질문 1회 — 진행 중 응답만)
+
+**System (서브에이전트 완료 알림):**
+detailed-design-agent Phase 1 상세설계(SWE.3) 완료. `Engineering/SoftwareDetailedDesignAndUnitConstruction/ENG-SWE3-001_SW 상세설계서.docx`, `diagrams/ENG-SWE3-002_상세설계 UML 및 호출관계.drawio`(클래스/호출관계+상태전이) 생성, `ENG-TRC-001` Detailed Design 컬럼만 갱신(파일 존재 확인 완료). 모듈 10개/함수 24개 확정, ClockPort(Protocol) 기반 시계 주입 설계(FakeClockAdapter로 결정론적 테스트), 미정 3건은 전부 TODO/안전측 기본값으로만 구현하도록 명시(임의 규칙 금지). **naming 상충 발견**: CLAUDE.md는 camelCase 지정하나 이미 확정된 공개 인터페이스가 Python 관용 snake_case — 사용자 확인 필요 항목으로 남김.
+
+---
+
+**User:**
+> (네이밍 규칙 질문 응답) "진행은 여기까지 멈춰줘"
+
+**Claude:**
+coding-agent 착수 보류. Phase 1 진행 상태(요구사항·아키텍처·상세설계 완료, 구현·테스트 미착수)를 정리해 보고, 이후 지시 대기로 전환.
+
+---
+
+**User:**
+> 산출물 개선 프롬프트
+> 현재 산출물 양식에 네가 작성한 내용의 양식이 없는 경우, 줄글로 작성하는데, 적절한 표를 생성해서 그 안에 작성해줘. 사용자가 보기 편한 형태로 작성해줘.
+> 다이어그램을 원본 내용 그래도 문서에 포함하지 말고, 원본 내용은 별도의 파일에 저장하고, 그 다이어그램을 이미지로 랜더링한 결과를 문서에 포함시켜줘.
+> 이 항목은 설정에 넣어줘.
+
+**Claude:**
+`aspice-common` 스킬 3장에 두 하위 규칙 추가: 3.1 표 우선 원칙(템플릿에 표가 없어도 나열 가능한 항목은 줄글 대신 표로), 3.2 다이어그램 원본 보존+렌더링 이미지 삽입(원본 .drawio는 diagrams/ 유지, 문서에는 draw.io CLI로 렌더링한 PNG 삽입). draw.io 데스크톱(JGraph.Draw) winget 설치, 기존 drawio 파일로 실제 PNG 렌더링 테스트 성공 확인(1002x472, 내용 정상 확인). 기존 Phase 1 산출물 3건 소급 적용 여부 질문 → "방식만 준비, 지금은 적용 안 함"으로 확정, 메모리에 추후 재확인 항목으로 기록.
+
+---
+
+**User:**
+> 서브 에이전트들이 각 작업을 순차적으로 수행할 때, 서로 컨택스트가 연결될 수 있는 방안을 마련해서 적용해줘.
+
+**Claude:**
+`aspice-common` 8장에 "서브에이전트 간 인수인계(Handoff) 로그" 규칙 신설: `Engineering/_handoff/<phase-slug>.md`에 append-only로 스테이지별 섹션(완료 산출물/확정 사항/가정·미확정 사항/다음 단계 주의사항) 기록, 다음 스테이지는 시작 전 반드시 전체를 읽음. requirements-analyzer/architecture-design-agent/detailed-design-agent/coding-agent/integration-test-agent/sw-system-tester 6개 에이전트 전부에 "핸드오프 로그 확인(시작)"·"핸드오프 로그 기록(종료)" 절차 단계 추가.
+
+---
+
+**User(작업 중 추가 지시):**
+> 1. MS 오피스 파일 작업을 위해 python 실행이 아닌 Libre Office를 설치하고 작업해줘.
+> 2. Main 중심의 오케스트레이션으로 설정해줘. 오케스트레이션은 Fable 5.1의 가장 낮은 추론으로 하고, Main이 필요에 따라 적절한 서브 에이전트를 사용해서 진행해줘. CLAUDE.md의 개발 순서 및 서브 에이전트 활용은 준수하고, 그 외에 필요한 서브 에이전트는 네가 생성해서 사용하되, 토큰 최적화를 위해 Sonnet 이하의 모델과 추론을 사용해줘. 만약 문제가 발생했는데 2회 이상 반복되는 경우, Fable 5.1의 Medium 추론으로 설정한 문제 해결 서브에이전트를 생성해서 해결해줘.
+
+**Claude:**
+LibreOffice 설치를 바로 시도했다가 사용자가 중단·정정: "설치는 나중에, 지금은 방식만 정리해두면 됨" → aspice-common 3장에 "docx/xlsx는 LibreOffice(soffice, UNO)를 정식 도구로 사용, 실제 작업 시작 시점에 설치" 정책만 기록, 설치는 보류. (이 교정을 향후 세션에도 적용되도록 메모리에 저장 — 앞으로 새 도구는 선언 즉시 설치하지 않고 실제 필요 시점에 설치.)
+Main 오케스트레이션: `.claude/settings.json`에 `model: claude-fable-5-1`, `effortLevel: low` 설정(신규 세션부터 적용, 현재 세션엔 소급 안 됨). 기존 서브에이전트 7개(`model: inherit` → `model: claude-sonnet-5`)로 전환해 Main의 모델 변경과 분리. 신규 `problem-solver` 에이전트 생성(model: claude-fable-5-1, 동일 문제 2회 이상 반복 시에만 호출) — 단, 이 하네스는 에이전트별 "추론 강도"를 모델과 별개로 지정하는 필드가 없어 Medium 추론 지정은 불가함을 그대로 안내(모델만 Fable 5.1로 설정). CLAUDE.md에 "오케스트레이션·모델 정책" 절 신설.

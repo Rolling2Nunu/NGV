@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-18T00:00:00.000Z" agent="architecture-design-agent" version="24.7.17" type="device" copyright="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요">
+  <diagram id="component-diagram" name="Page-1 (컴포넌트 다이어그램)">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="ENG-SWE2-001 — 컴포넌트 다이어그램 (Phase 1: 입력 계약/유효성, 포트-어댑터 구조)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1080" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="boundary" value="단일 SW 유닛 경계 (Phase 1 범위, Python 3.14 / PC-SIL)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;strokeColor=#2F75B5;fillColor=#F5F9FD;fontColor=#595959;fontSize=13;verticalAlign=top;spacingTop=14;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="1090" height="640" as="geometry"/>
+        </mxCell>
+        <mxCell id="vehicle_actor" value="Vehicle ECU&#10;(외부 액터)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_adapter" value="CMP-VEHICLE-ADAPTER&#10;Vehicle Input Adapter&#10;(인바운드)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=2;fillColor=#FFF2CC;fontColor=#000000;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=6;shape=component;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_clock" value="CMP-CLOCK-ADAPTER&#10;Clock Adapter&#10;(아웃바운드)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=2;fillColor=#FFF2CC;fontColor=#000000;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=6;shape=component;" vertex="1" parent="1">
+          <mxGeometry x="260" y="560" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="core_boundary" value="CMP-INPUT-CORE «composite component»&#10;(파사드 / 오케스트레이션)" style="rounded=0;whiteSpace=wrap;html=1;dashed=0;strokeWidth=2;strokeColor=#17365D;fillColor=#FFFFFF;fontColor=#17365D;fontSize=13;fontStyle=1;verticalAlign=top;spacingTop=10;align=left;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="110" width="480" height="540" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_fmt" value="CMP-FORMAT-VALIDATOR (REQ-SW-F-001)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=1;fillColor=#D9EAF7;fontColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="160" width="430" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_rng" value="CMP-RANGE-VALIDATOR (REQ-SW-F-002)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=1;fillColor=#D9EAF7;fontColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="230" width="430" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_rej" value="CMP-REJECTION-GATE (REQ-SW-F-003)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=1;fillColor=#D9EAF7;fontColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="300" width="430" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_fresh" value="CMP-FRESHNESS-MONITOR (REQ-SW-F-004)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=1;fillColor=#D9EAF7;fontColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="370" width="430" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="cmp_state" value="CMP-STATE-MANAGER (REQ-SW-F-005)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#2F75B5;strokeWidth=1;fillColor=#D9EAF7;fontColor=#000000;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="440" width="430" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fmt_rng" value="IF-FORMAT-CHECK 결과" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cmp_fmt" target="cmp_rng">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_rng_rej" value="IF-RANGE-CHECK 결과" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cmp_rng" target="cmp_rej">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_rej_fresh" value="IF-REJECTION-GATE 결과&#10;(ValidInputSet)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cmp_rej" target="cmp_fresh">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fresh_state" value="IF-FRESHNESS-CHECK 결과" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cmp_fresh" target="cmp_state">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="future_consumer" value="CMP-SAFETY-DECISION&#10;(Phase 2 안전최우선 로직)&#10;본 문서 범위 아님" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeColor=#767171;strokeWidth=2;fillColor=#F2F2F2;fontColor=#595959;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="240" width="220" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_adapter_core" value="IF-SUBMIT-SNAPSHOT&#10;submit_vehicle_snapshot(raw, received_at_s)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="cmp_adapter" target="core_boundary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vehicle_adapter" value="OEM-IF-001,002,003,007,008,009" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1" source="vehicle_actor" target="cmp_adapter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fresh_clock" value="IF-CLOCK now_s()&#10;(추상 포트, DIP)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;fontSize=10;strokeColor=#7030A0;fontColor=#7030A0;" edge="1" parent="1" source="cmp_fresh" target="cmp_clock">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_adapter_clock" value="IF-CLOCK now_s()&#10;(수신시각 기록)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;fontSize=10;strokeColor=#7030A0;fontColor=#7030A0;" edge="1" parent="1" source="cmp_adapter" target="cmp_clock">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_future_valid" value="IF-GET-VALIDATED-INPUTS&#10;(조회, 확장 지점)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;;dashed=1" edge="1" parent="1" source="future_consumer" target="core_boundary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_future_state" value="IF-GET-SW-STATE&#10;(조회, 확장 지점)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;;dashed=1" edge="1" parent="1" source="future_consumer" target="core_boundary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_future_sub" value="IF-SUBSCRIBE-STATE-CHANGED&#10;(구독, 확장 지점)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontSize=10;;dashed=1" edge="1" parent="1" source="future_consumer" target="core_boundary">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="범례&#10;실선 화살표 = 동기 호출(의존 방향)&#10;보라색 화살표(열린 화살촉) = 의존성 역전(DIP), 추상 포트 의존&#10;점선 화살표/점선 박스 = Phase 2 확장 지점(본 문서 범위 아님)&#10;내부 박스 4개 화살표 = 코어 오케스트레이션 순차 호출 순서" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="420" width="180" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="footer" value="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요 | 근거: ENG-SWE1-001(Phase 1), OEM-SWR-001 5장/6장" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="1090" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="sequence-diagram" name="Page-2 (시퀀스 다이어그램)">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="s_title" value="ENG-SWE2-001 — 시퀀스 다이어그램: 정상 평가 주기 (Phase 1)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="15" width="1080" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_vehicle_head" value="Vehicle ECU&#10;(외부)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#595959;fontColor=#000000;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="25" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_vehicle_line" style="html=1;strokeColor=#595959;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="110" as="sourcePoint"/>
+            <mxPoint x="90" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll_adapter_head" value="CMP-VEHICLE-&#10;ADAPTER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="195" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_adapter_line" style="html=1;strokeColor=#BF9000;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="110" as="sourcePoint"/>
+            <mxPoint x="260" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll_core_head" value="CMP-INPUT-CORE&#10;(파사드)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#17365D;fontColor=#000000;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="395" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_core_line" style="html=1;strokeColor=#17365D;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="110" as="sourcePoint"/>
+            <mxPoint x="460" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll_pipeline_head" value="Pipeline&#10;(Format→Range→&#10;Rejection→Freshness→&#10;State 순차)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D9EAF7;strokeColor=#2F75B5;fontColor=#000000;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="615" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_pipeline_line" style="html=1;strokeColor=#2F75B5;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="110" as="sourcePoint"/>
+            <mxPoint x="680" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll_clock_head" value="CMP-CLOCK-&#10;ADAPTER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="835" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_clock_line" style="html=1;strokeColor=#BF9000;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="110" as="sourcePoint"/>
+            <mxPoint x="900" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll_future_head" value="(Phase 2) 미래&#10;구독자 — 범위 밖" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#767171;fontColor=#000000;fontSize=10;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1015" y="60" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_future_line" style="html=1;strokeColor=#767171;dashed=1;endArrow=none;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="110" as="sourcePoint"/>
+            <mxPoint x="1080" y="1010" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m01" value="① OEM-IF-001,002,003,007,008,009 신호 송신" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="150" as="sourcePoint"/>
+            <mxPoint x="260" y="150" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m02" value="② IF-CLOCK now_s()" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="192" as="sourcePoint"/>
+            <mxPoint x="900" y="192" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m03" value="반환: received_at_s" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="234" as="sourcePoint"/>
+            <mxPoint x="260" y="234" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m04" value="③ IF-SUBMIT-SNAPSHOT: submit_vehicle_snapshot(raw, received_at_s)" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="276" as="sourcePoint"/>
+            <mxPoint x="460" y="276" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m05" value="④ IF-FORMAT-CHECK: check_format(raw) [CMP-FORMAT-VALIDATOR]" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="318" as="sourcePoint"/>
+            <mxPoint x="680" y="318" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m06" value="반환: FormatCheckedSnapshot" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="360" as="sourcePoint"/>
+            <mxPoint x="460" y="360" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m07" value="⑤ IF-RANGE-CHECK: check_range(...) [CMP-RANGE-VALIDATOR]" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="402" as="sourcePoint"/>
+            <mxPoint x="680" y="402" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m08" value="반환: RangeCheckedSnapshot" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="444" as="sourcePoint"/>
+            <mxPoint x="460" y="444" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m09" value="⑥ IF-REJECTION-GATE: apply_rejection(...) [CMP-REJECTION-GATE]" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="486" as="sourcePoint"/>
+            <mxPoint x="680" y="486" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="반환: ValidInputSet (거절 필드 제외됨)" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="528" as="sourcePoint"/>
+            <mxPoint x="460" y="528" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="⑦ IF-FRESHNESS-CHECK: check_freshness(...) [CMP-FRESHNESS-MONITOR]" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="570" as="sourcePoint"/>
+            <mxPoint x="680" y="570" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="IF-CLOCK now_s() (freshness 산출용 재조회)" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="612" as="sourcePoint"/>
+            <mxPoint x="900" y="612" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="반환: 현재 시각" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="654" as="sourcePoint"/>
+            <mxPoint x="680" y="654" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="반환: FreshnessResult 목록" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="696" as="sourcePoint"/>
+            <mxPoint x="460" y="696" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="⑧ IF-STATE-UPDATE: update_state(...) [CMP-STATE-MANAGER]" style="html=1;endArrow=block;endFill=1;fontSize=9;align=center;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="738" as="sourcePoint"/>
+            <mxPoint x="680" y="738" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" value="⑨ [조건: 상태 변경] IF-SUBSCRIBE-STATE-CHANGED 콜백(이전상태, 신규상태) — 동일 주기 내 동기 호출" style="html=1;endArrow=block;endFill=1;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#767171;fontColor=#767171;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="780" as="sourcePoint"/>
+            <mxPoint x="1080" y="780" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="반환: 상태 갱신 완료" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="822" as="sourcePoint"/>
+            <mxPoint x="460" y="822" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m18" value="⑩ 반환(void) — 이후 get_validated_inputs()/get_sw_state() 최신값 반영" style="html=1;endArrow=open;endFill=0;dashed=1;fontSize=9;align=center;verticalAlign=bottom;strokeColor=#595959;fontColor=#595959;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="864" as="sourcePoint"/>
+            <mxPoint x="260" y="864" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note" value="제약: ③~⑩ 전체가 100 ms 이내 동기 완주(REQ-SW-F-005 근거).&#10;INVALID 필드가 있어도 파이프라인은 중단되지 않고 나머지 유효 필드에 대해 계속 진행한다(부분 거절).&#10;⑨는 조건부(상태가 실제로 변경된 경우만) — 상태 변화 없으면 콜백 호출하지 않음." style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#FFF2CC;strokeColor=#BF9000;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="926" width="950" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_footer" value="교육용 샘플 | © 2026 Synetics | 과정 밖 이용은 사전 서면 승인 필요 | 근거: ENG-SWE2-001 7장 동적 동작" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1036" width="1080" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

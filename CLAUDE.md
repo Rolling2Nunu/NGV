@@ -82,6 +82,30 @@
 - 저장소가 public이므로 CI 로그·상태는 외부에 노출됨(비밀값/토큰을
   워크플로에 하드코딩하지 않는다).
 
+### 오케스트레이션·모델 정책 (Main 중심)
+
+- **Main(오케스트레이터)**: 모델 Fable 5.1(`claude-fable-5-1`), 추론
+  최저(`effortLevel: low`)로 설정(`.claude/settings.json`). Main은 이
+  CLAUDE.md의 개발 순서(분석→설계→구현→테스트)와 담당 서브에이전트
+  배정을 그대로 따르며, 실제 산출물 작업은 직접 하지 않고 적절한
+  서브에이전트를 호출해 진행한다.
+  - 주의: 이 설정은 **프로젝트 기본값**이며 이미 실행 중인 세션에는
+    소급 적용되지 않는다(새 세션부터 적용, 또는 `/model`로 직접 전환).
+- **서브에이전트**: requirements-analyzer/architecture-design-agent/
+  detailed-design-agent/coding-agent/integration-test-agent/
+  sw-system-tester/aspice-cl2-auditor는 토큰 최적화를 위해 모델을
+  Sonnet(`claude-sonnet-5`)로 고정(각 에이전트 `.md`의 `model:` 필드,
+  `inherit` 아님 — Main이 Fable로 바뀌어도 서브에이전트는 Sonnet 유지).
+  이 외에 필요한 서브에이전트를 새로 만들 때도 기본적으로 Sonnet 이하
+  모델을 사용한다.
+  - 한계: 이 하네스의 서브에이전트 정의(`.md` frontmatter)는 모델
+    선택만 지원하고, 모델과 별개인 "추론 강도(effort)"를 에이전트별로
+    지정하는 필드는 없다 — Sonnet 계열 서브에이전트의 추론 강도는
+    개별 조정 대상이 아니다.
+- **문제 해결 에스컬레이션**: 동일 문제가 2회 이상 반복 실패하면,
+  `problem-solver` 서브에이전트(모델 Fable 5.1)를 호출해 근본 원인을
+  해결한다. 일반 단계 진행에는 사용하지 않는다.
+
 ### 문서 작성 스타일
 
 - Claude의 대화 응답과 이 프로젝트의 모든 문서(요구사항 명세서, 아키텍처
