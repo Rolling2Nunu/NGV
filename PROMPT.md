@@ -494,3 +494,11 @@ Main 오케스트레이션: `.claude/settings.json`에 `model: claude-fable-5-1`
 
 **Claude:**
 전체 커밋(932b4e9) 후 push 시도 중 원격 거부 발견 — 사용자가 IDE에서 직접 두 커밋(8692ddd: CLAUDE.md 끝에 원본 프롬프트 텍스트 2건 추가, 3b2b01c: aspice-auditor SKILL.md에 "평가 방법"(F/L/P/NA, 부적합 시 엑셀 보고+예상 질문/모범답변, "평가에는 자비란 없다"), "평가 순서"(PRM↔표준프로세스 비교 우선), "질문 리스트 작성 방법"(5W1H, Yes/No 금지) 추가)을 이미 push해둔 상태 확인. git merge로 무손실 병합(양쪽 내용 모두 보존, 충돌 없음) 후 push 완료.
+
+---
+
+**User:**
+> 응, 정리해줘
+
+**Claude:**
+CLAUDE.md 끝의 원본 프롬프트 텍스트 2건("산출물 개선 프롬프트", "Fable 5.1 오케스트레이션 설정 프롬프트") 삭제(이미 aspice-common 3.1/3.2와 CLAUDE.md "오케스트레이션·모델 정책" 절에 정식 반영됨). 커밋 전.
