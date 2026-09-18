@@ -486,3 +486,11 @@ coding-agent 착수 보류. Phase 1 진행 상태(요구사항·아키텍처·�
 **Claude:**
 LibreOffice 설치를 바로 시도했다가 사용자가 중단·정정: "설치는 나중에, 지금은 방식만 정리해두면 됨" → aspice-common 3장에 "docx/xlsx는 LibreOffice(soffice, UNO)를 정식 도구로 사용, 실제 작업 시작 시점에 설치" 정책만 기록, 설치는 보류. (이 교정을 향후 세션에도 적용되도록 메모리에 저장 — 앞으로 새 도구는 선언 즉시 설치하지 않고 실제 필요 시점에 설치.)
 Main 오케스트레이션: `.claude/settings.json`에 `model: claude-fable-5-1`, `effortLevel: low` 설정(신규 세션부터 적용, 현재 세션엔 소급 안 됨). 기존 서브에이전트 7개(`model: inherit` → `model: claude-sonnet-5`)로 전환해 Main의 모델 변경과 분리. 신규 `problem-solver` 에이전트 생성(model: claude-fable-5-1, 동일 문제 2회 이상 반복 시에만 호출) — 단, 이 하네스는 에이전트별 "추론 강도"를 모델과 별개로 지정하는 필드가 없어 Medium 추론 지정은 불가함을 그대로 안내(모델만 Fable 5.1로 설정). CLAUDE.md에 "오케스트레이션·모델 정책" 절 신설.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+전체 커밋(932b4e9) 후 push 시도 중 원격 거부 발견 — 사용자가 IDE에서 직접 두 커밋(8692ddd: CLAUDE.md 끝에 원본 프롬프트 텍스트 2건 추가, 3b2b01c: aspice-auditor SKILL.md에 "평가 방법"(F/L/P/NA, 부적합 시 엑셀 보고+예상 질문/모범답변, "평가에는 자비란 없다"), "평가 순서"(PRM↔표준프로세스 비교 우선), "질문 리스트 작성 방법"(5W1H, Yes/No 금지) 추가)을 이미 push해둔 상태 확인. git merge로 무손실 병합(양쪽 내용 모두 보존, 충돌 없음) 후 push 완료.
