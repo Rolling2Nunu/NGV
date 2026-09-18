@@ -502,3 +502,11 @@ Main 오케스트레이션: `.claude/settings.json`에 `model: claude-fable-5-1`
 
 **Claude:**
 CLAUDE.md 끝의 원본 프롬프트 텍스트 2건("산출물 개선 프롬프트", "Fable 5.1 오케스트레이션 설정 프롬프트") 삭제(이미 aspice-common 3.1/3.2와 CLAUDE.md "오케스트레이션·모델 정책" 절에 정식 반영됨). 커밋 전.
+
+---
+
+**User:**
+> 폴더 트리를 분석해서, 각 단계별로 0_WP_Templates내 양식에 작성될 수 있게끔 해줘. *.html로 작성 먼저하고, 검토 후에 *.docx파일로 산출물이 도출될 수 있게 해줘.
+
+**Claude:**
+0_WP_Templates 전체 폴더 트리 재확인(docx 5종: SWE1-001/002, SWE2-001, SWE3-001, SWE5-001 / drawio 3종 / xlsx 10종). aspice-common 3.3 "DOCX 산출물: HTML 초안 → 검토 → DOCX 확정" 절 신설 — docx 5종 대상, xlsx는 대상 제외(기존 방식 유지). HTML 초안은 drafts/ 폴더에 보관, 별도 체크포인트 신설 없이 기존 phase 단위 리뷰에 포함, 승인 후 LibreOffice로 실제 템플릿에 옮겨 DOCX 확정. requirements-analyzer/architecture-design-agent/detailed-design-agent/integration-test-agent 4개 에이전트 절차 갱신. 기존 Phase 1 docx 3건 소급 적용 여부 질문 → "지금은 두고 Phase 2부터 적용"으로 확정, 메모리 갱신.

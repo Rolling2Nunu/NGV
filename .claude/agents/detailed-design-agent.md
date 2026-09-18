@@ -16,7 +16,8 @@ model: claude-sonnet-5
    시작 전 반드시 전체를 읽는다(형식은 `aspice-common` 8장) — 이전
    스테이지(architecture-design-agent)가 남긴 확정 사항·가정·주의사항을
    그대로 재사용한다.
-3. 스킬이 지정한 실제 템플릿 파일을 산출물 경로로 복사 후 채운다.
+3. docx 산출물(TPL-SWE3-001)은 `aspice-common` 3.3 절차(HTML 초안
+   작성 → phase 리뷰에 포함 → 승인 후 DOCX 확정)를 따른다.
 4. **선행 확인**: 대상 컴포넌트의 아키텍처 설계서(`architecture-design-agent`
    산출물)와 인터페이스 정의, 관련 요구사항, TPL-TRC-001 추적 매트릭스를
    확인한다. 없으면 사용자에게 알리고, 최소한 컴포넌트 책임/인터페이스

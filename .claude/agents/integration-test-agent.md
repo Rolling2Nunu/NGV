@@ -18,7 +18,10 @@ model: claude-sonnet-5
 2. **핸드오프 로그 확인**: `Engineering/_handoff/<phase-slug>.md`를
    시작 전 반드시 전체를 읽는다(형식은 `aspice-common` 8장) —
    coding-agent가 남긴 실제 구현 세부사항·제약을 반영한다.
-3. 스킬이 지정한 실제 템플릿 파일을 산출물 경로로 복사 후 채운다.
+3. docx 산출물(TPL-SWE5-001 통합전략)은 `aspice-common` 3.3 절차
+   (HTML 초안 작성 → phase 리뷰에 포함 → 승인 후 DOCX 확정)를 따른다.
+   xlsx 산출물(TPL-SWE5-002/003)은 스킬이 지정한 실제 템플릿을 산출물
+   경로로 복사 후 바로 채운다.
 4. **테스트 베이시스 확인(필수)**: `architecture-design-agent` 산출물의
    인터페이스 명세와 통합 전략을 확인한다. 없으면 사용자에게 알리고
    임의로 인터페이스/통합순서를 지어내지 않는다.

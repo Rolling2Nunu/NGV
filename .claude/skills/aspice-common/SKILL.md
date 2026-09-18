@@ -33,7 +33,8 @@ CLAUDE.md "문서 작성 스타일" 정책 그대로 적용: 단답형(개조식
 - 산출물은 마크다운을 새로 작성하지 않고, `.claude/0_WP_Templates/`
   (또는 `.claude/0_OEM_Sample/`)의 실제 docx/xlsx/drawio 템플릿 파일을
   프로젝트 산출물 경로로 복사한 뒤 채운다.
-  - docx/xlsx: **LibreOffice(soffice, UNO API/매크로)를 정식 도구로
+  - docx: **HTML 초안 → 검토 → DOCX 확정** 절차를 따른다(3.3 참조).
+  - xlsx: **LibreOffice(soffice, UNO API/매크로)를 정식 도구로
     사용한다.** 임시 python-docx/openpyxl 스크립트나 OOXML을 직접
     unzip해 XML을 조작하는 방식은 LibreOffice가 없던 시점의 임시방편이었고,
     LibreOffice가 설치된 이후로는 사용하지 않는다. LibreOffice가 이
@@ -85,6 +86,32 @@ CLAUDE.md "문서 작성 스타일" 정책 그대로 적용: 단답형(개조식
   것처럼 위장하지 않는다.
 - `docx`/`xlsx` 스킬로 문서를 채울 때 이 렌더링 PNG를 이미지로 삽입한다
   (원본 XML 텍스트를 표/문단에 붙여넣지 않는다).
+
+### 3.3 DOCX 산출물: HTML 초안 → 검토 → DOCX 확정 (필수)
+
+대상 템플릿: TPL-SWE1-001(요구사항), TPL-SWE1-002(Use Case),
+TPL-SWE2-001(아키텍처), TPL-SWE3-001(상세설계), TPL-SWE5-001(통합전략).
+(xlsx 산출물 — 추적매트릭스/테스트케이스/SBOM/리뷰기록 등 — 은 이 절차
+대상이 아니다. 표 형태 그대로 xlsx로 직접 작성한다.)
+
+1. **HTML 초안 작성**: 실제 TPL-*.docx의 장/절 구조(표지·문서통제·목차·
+   본문 순서)를 그대로 반영한 HTML 파일을 작성한다. 3.1(표 우선)과
+   3.2(다이어그램 렌더링 이미지 `<img>` 삽입)를 이 초안 단계에서 이미
+   적용한다. 저장 위치: 산출물 폴더 하위 `drafts/`, 파일명은 산출물 ID
+   기준(예: `Engineering/SoftwareRequirementsAnalysis/drafts/
+   ENG-SWE1-001_SW 요구사항 명세서.html`).
+2. **검토**: 별도 체크포인트를 새로 만들지 않는다 — 이 프로젝트의 기존
+   phase 단위 리뷰(phase 종료 시 1회, 아키텍처 후보안만 예외)에 초안
+   HTML을 포함해 함께 검토받는다. 사용자는 브라우저로 초안을 열어
+   확인할 수 있다.
+3. **DOCX 확정**: 사용자 승인 후, 실제 TPL-*.docx 템플릿을 산출물
+   경로로 복사하고 LibreOffice(soffice, UNO)로 승인된 초안 내용을 그
+   템플릿에 옮겨 채운다. 템플릿의 표지·문서통제·목차 구조는 그대로
+   유지하고 본문만 초안 내용으로 채운다.
+4. 확정 후에도 초안 HTML은 `drafts/`에 그대로 남긴다(삭제하지 않음 —
+   검토·승인 근거로 보존).
+5. 승인 없이 곧바로 DOCX를 확정하지 않는다. 초안 단계에서 이미 문제가
+   있으면 DOCX로 옮기기 전에 고친다.
 
 ## 4. 추적 매트릭스 — TPL-TRC-001 스키마 (단일 정의)
 

@@ -15,7 +15,8 @@ model: claude-sonnet-5
    재기술하지 않는다.
 2. **핸드오프 로그 확인**: `Engineering/_handoff/<phase-slug>.md`가
    있으면 시작 전 반드시 전체를 읽는다(형식은 `aspice-common` 8장).
-3. 스킬이 지정한 실제 양식 파일을 산출물 경로로 복사 후 채운다.
+3. docx 산출물(TPL-SWE2-001)은 `aspice-common` 3.3 절차(HTML 초안
+   작성 → phase 리뷰에 포함 → 승인 후 DOCX 확정)를 따른다.
 4. 가능하면 `requirements-analyzer` 산출물과 TPL-TRC-001 추적 매트릭스를
    확인해 반영할 요구사항을 파악한다. 없으면 사용자에게 범위를 확인한다.
 5. **후보 아키텍처 제안 → 사용자 선정 → 상세 설계** 순서를 반드시
