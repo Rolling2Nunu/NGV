@@ -311,3 +311,35 @@ PROMPT.md 로그 갱신분만 커밋 후 push(툴 설치 자체는 저장소 외
 
 **Claude:**
 obra/superpowers의 test-driven-development/SKILL.md·writing-good-tests.md 원문 확보(WebFetch) 후 한글 번역·Python/unittest 각색해 `.claude/skills/tdd/SKILL.md`(Iron Law, Red-Green-Refactor, 좋은/나쁜 예, 합리화 반박표, 경고신호, 뮤테이션점검, 체크리스트) 전면 교체 및 `.claude/skills/tdd/writing-good-tests.md`(원칙1 깨짐의 이름, 원칙2 실제대상 실행, 게이트함수, 경고신호) 신규 생성. 기존 NGV tdd 스킬의 unittest 표준·상세설계 커버리지 매핑·test_*.py 명명은 "11장 이 프로젝트 적용 사항"으로 보존. 신규 요구사항(테스트 기법/긍정·부정 케이스/Doxygen 목적설명)은 "6장 테스트 문서화 규칙"으로 반영(`@brief`/`@technique`/`@case` docstring 태그). coding-agent.md 절차에도 반영. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+tdd 스킬 교체분(SKILL.md, writing-good-tests.md 신규), coding-agent.md, PROMPT.md 갱신분을 커밋(ce1e8b8) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> https://github.com/Rolling2Nunu/NGV.git를 Branch 트리 관리하는 전략 중 트렌디한 걸 https://github.com/obra/superpower에서 찾아서 반영해줘. github구조를 업데이트해줘
+
+**Claude:**
+obra/superpowers의 using-git-worktrees·finishing-a-development-branch 스킬(WebFetch) 확인 후 GitHub Flow 기반 전략(트렁크 main, 단명 feature 브랜치, worktree 격리, 테스트게이트+PR 완료절차)을 CLAUDE.md "Git 브랜치 전략" 절로 반영. `.gitignore`에 `.worktrees/` 추가. 실제 feature/0.0.1→main 병합/PR 실행 여부는 사용자 확인 대기(커밋 전).
+
+---
+
+**User:**
+> (실행 확인 질문 응답) "지금 feature/0.0.1을 main으로 PR 생성·병합"
+
+**Claude:**
+CLAUDE.md/.gitignore 커밋(11ace78)·push. gh CLI 미설치 확인 후 winget 설치, 기존 GCM 토큰은 scope 부족으로 실패해 `gh auth login --web` 디바이스 코드 인증 진행(사용자가 브라우저에서 완료). main 브랜치를 최초 커밋(e127dbb)에서 생성·push, PR #1(feature/0.0.1→main) 생성 후 병합(merge commit, feature 브랜치 유지), 저장소 기본 브랜치를 main으로 전환, 로컬 main을 origin/main에 동기화.
+
+---
+
+**User:**
+> 완료
+
+**Claude:**
+gh auth status로 인증 완료 확인 후 PR 생성·병합·기본 브랜치 전환까지 이어서 실행.
