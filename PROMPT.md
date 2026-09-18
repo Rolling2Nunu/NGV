@@ -236,3 +236,20 @@ git 내부 상태 점검(로컬/원격 SHA 동일, feature/0.0.1만 존재, 원�
 
 **Claude:**
 `.claude/skills/detailed-designer/SKILL.md`(TPL-SWE3-001 15장 목차, 모듈분해/호출관계(.drawio)/함수계약(사전·사후조건·부작용·예외·시간제약)/알고리즘·정책·상태전이/오류·방어동작/코딩표준(미정시 확인)/모듈단위 SOLID·응집도결합도 계승/TPL-TRC-001 Detailed Design 컬럼 추적)와 `.claude/agents/detailed-design-agent.md`(아키텍처 산출물 선행확인 후 스킬 로드해 작업하는 서브에이전트) 생성. 커밋 전.
+
+---
+
+**User:**
+> 커밋 푸시해줘
+
+**Claude:**
+detailed-designer 스킬, detailed-design-agent, PROMPT.md 갱신분을 커밋(6d6c020) 후 origin의 feature/0.0.1로 push함.
+
+---
+
+**User:**
+> 구현에 대한 서브 에이전트와 스킬도 만들어줘。@CLAUDE.md 의 구현지침을 준수하는 스킬을 생성한다.
+> (중간에 "멈춰"로 1회 중단 후 동일 요청 재전달)
+
+**Claude:**
+사용자가 CLAUDE.md에 직접 추가한 "구현 지침"(Python 3.14/unittest, Coding 서브에이전트, TDD 방식+TDD 스킬, 품질지표: 함수라인수50/순환복잡도10/중복7라인/Doxygen20%/네이밍3자+카멜케이스) 확인. `.claude/skills/tdd/SKILL.md`(Red-Green-Refactor 절차, 테스트작성규칙, unittest), `.claude/skills/coding-standards/SKILL.md`(품질지표 표+오픈소스 도구 실측 필수, Doxygen 규칙, 네이밍, TPL-TRC-001 Code컬럼 추적, TPL-SBOM-001 연계), `.claude/agents/coding-agent.md`(tdd+coding-standards 스킬 모두 로드, 상세설계 선행확인, 실측 검증 필수인 서브에이전트) 3개 파일 생성. 커밋 전.
