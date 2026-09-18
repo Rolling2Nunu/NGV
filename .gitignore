@@ -1,0 +1,3 @@
+# git worktree 격리 작업공간(using-git-worktrees 스킬 참고)
+.worktrees/
+worktrees/
